@@ -1,5 +1,5 @@
 #FROM        openjdk:16-slim
-FROM         debian:buster-slim
+FROM         --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
 # copy JDK from Microsoft's build
 ENV LANG=C.UTF-8
