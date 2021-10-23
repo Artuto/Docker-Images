@@ -1,27 +1,31 @@
-#FROM        openjdk:16-slim
 FROM         --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
-# copy JDK from Microsoft's build
-ENV LANG=C.UTF-8
-ENV JAVA_HOME=/usr/lib/jvm/msopenjdk-16-amd64
-ENV PATH="${JAVA_HOME}/bin:${PATH}"
-COPY --from=mcr.microsoft.com/openjdk/jdk:16-ubuntu $JAVA_HOME $JAVA_HOME
+ENV         LANG=C.UTF-8
+ENV         JAVA_HOME=/usr/lib/jvm/java
+ENV         PATH="${JAVA_HOME}/bin:${PATH}"
+
+LABEL       author="Artuto" maintainer="artuto@artuto.xyz"
+
+LABEL       org.opencontainers.image.source="https://github.com/Artuto/Docker-Images"
+LABEL       org.opencontainers.image.licenses=MIT
+
+RUN         apt-get update -y \
+            && apt-get install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 \
+            && useradd -d /home/container -m container
+
+# download JDK from MS
+COPY        ./copyjava.sh /copyjava.sh
+RUN         /bin/bash copyjava.sh
 
 # continue with normal operation
-LABEL        author="Artuto" maintainer="artuto@artuto.xyz"
-
-RUN apt-get update -y \
- && apt-get install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 \
- && useradd -d /home/container -m container
- 
-USER container
-ENV  USER=container HOME=/home/container
+USER        container
+ENV         USER=container HOME=/home/container
 
 USER        container
 ENV         USER=container HOME=/home/container
 
 WORKDIR     /home/container
 
-COPY        ./entrypoint.sh /entrypoint.sh
+COPY        ./../../entrypoint.sh /entrypoint.sh
 
 CMD         ["/bin/bash", "/entrypoint.sh"]
