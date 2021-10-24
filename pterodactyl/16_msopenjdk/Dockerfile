@@ -14,7 +14,7 @@ RUN         apt-get update -y \
             && useradd -d /home/container -m container
 
 # download JDK from MS
-COPY        ./copyjava.sh /copyjava.sh
+COPY        copyjava.sh /copyjava.sh
 RUN         /bin/bash copyjava.sh
 
 # continue with normal operation
