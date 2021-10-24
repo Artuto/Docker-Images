@@ -14,15 +14,11 @@ RUN         apt-get update -y \
             && useradd -d /home/container -m container
 
 # download JDK from MS
-RUN         if [[ "$TARGETARCH" == "amd64" ]]; \
-            then \
-                curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-x64.tar.gz -Lo jdk.tar.gz \
-            else \
-                curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-aarch64.tar.gz -Lo jdk.tar.gz \
-            fi
+RUN         if [[ "$TARGETARCH" == "amd64" ]]; then curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-x64.tar.gz -Lo jdk.tar.gz; \
+            else curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-aarch64.tar.gz -Lo jdk.tar.gz; fi;
 
 COPY        ./../copyjava.sh /copyjava.sh
-RUN         copyjava.sh
+RUN         ./copyjava.sh
 
 # continue with normal operation
 USER        container
