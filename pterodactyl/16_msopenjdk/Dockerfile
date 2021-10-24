@@ -14,11 +14,13 @@ RUN         apt-get update -y \
             && useradd -d /home/container -m container
 
 # download JDK from MS
-RUN         if [[ "$TARGETARCH" == "amd64" ]]; then curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-x64.tar.gz -Lo jdk.tar.gz; \
-            else curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-aarch64.tar.gz -Lo jdk.tar.gz; fi;
+ARG         TARGETARCH
+RUN         if [ "${TARGETARCH}" = "amd64" ] ; then curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-x64.tar.gz -Lo jdk.tar.gz ; \
+            elif [ "${TARGETARCH}" = "arm64" ] ; then curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-aarch64.tar.gz -Lo jdk.tar.gz ; \
+            else echo "Your systems architecture isn't supported by this java version!" ; exit 100 ; fi;
 
 COPY        ./../copyjava.sh /copyjava.sh
-RUN         /copyjava.sh
+RUN         ./copyjava.sh
 
 # continue with normal operation
 USER        container
