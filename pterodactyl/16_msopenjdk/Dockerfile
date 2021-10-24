@@ -18,7 +18,7 @@ RUN         if [[ "$TARGETARCH" == "amd64" ]]; then curl https://aka.ms/download
             else curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-aarch64.tar.gz -Lo jdk.tar.gz; fi;
 
 COPY        ./../copyjava.sh /copyjava.sh
-RUN         ./copyjava.sh
+RUN         /copyjava.sh
 
 # continue with normal operation
 USER        container
