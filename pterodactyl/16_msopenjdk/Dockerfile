@@ -21,9 +21,6 @@ RUN         /bin/bash copyjava.sh
 USER        container
 ENV         USER=container HOME=/home/container
 
-USER        container
-ENV         USER=container HOME=/home/container
-
 WORKDIR     /home/container
 
 COPY        ./../entrypoint.sh /entrypoint.sh
