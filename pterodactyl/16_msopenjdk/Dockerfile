@@ -1,28 +1,21 @@
 FROM         --platform=$TARGETOS/$TARGETARCH debian:buster-slim
 
 ENV         LANG=C.UTF-8
-ENV         JAVA_HOME=/usr/lib/jvm/java
-ENV         PATH="${JAVA_HOME}/bin:${PATH}"
 
 LABEL       author="Artuto" maintainer="artuto@artuto.xyz"
 
 LABEL       org.opencontainers.image.source="https://github.com/Artuto/Docker-Images"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apt-get update -y \
-            && apt-get install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 \
+RUN         apt update -y \
+            && apt install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 \
+            && curl https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -o packages-microsoft-prod.deb \
+            && dpkg -i packages-microsoft-prod.deb \
+            && rm packages-microsoft-prod.deb \
+            && apt update -y \
+            && apt install -y msopenjdk-16 \
             && useradd -d /home/container -m container
 
-# download JDK from MS
-ARG         TARGETARCH
-RUN         if [ "${TARGETARCH}" = "amd64" ] ; then curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-x64.tar.gz -Lo jdk.tar.gz ; \
-            elif [ "${TARGETARCH}" = "arm64" ] ; then curl https://aka.ms/download-jdk/microsoft-jdk-16.0.2.7.1-linux-aarch64.tar.gz -Lo jdk.tar.gz ; \
-            else echo "Your systems architecture isn't supported by this java version!" ; exit 100 ; fi;
-
-COPY        ./../copyjava.sh /copyjava.sh
-RUN         ./copyjava.sh
-
-# continue with normal operation
 USER        container
 ENV         USER=container HOME=/home/container
 
