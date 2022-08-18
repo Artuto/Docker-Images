@@ -16,7 +16,6 @@ jobs:
       fail-fast: false
       matrix:
         tag:
-          - 16_msopenjdk
           - 17_msopenjdk
     steps:
       - uses: actions/checkout@v2
