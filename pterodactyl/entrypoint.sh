@@ -11,5 +11,10 @@ export INTERNAL_IP=`ip route get 1 | awk '{print $NF;exit}'`
 MODIFIED_STARTUP=`eval echo $(echo ${STARTUP} | sed -e 's/{{/${/g' -e 's/}}/}/g')`
 echo ":/home/container$ ${MODIFIED_STARTUP}"
 
+# Update configurations
+if [ -n "${CONFIG_GIT_REPO_URL}" ]; then
+    /update-git.sh
+fi
+
 # Run the Server
 eval ${MODIFIED_STARTUP}

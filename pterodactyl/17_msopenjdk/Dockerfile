@@ -14,7 +14,8 @@ RUN         apt update -y \
             && rm packages-microsoft-prod.deb \
             && apt update -y \
             && apt install -y msopenjdk-17 \
-            && useradd -d /home/container -m container
+            && useradd -d /home/container -m container \
+            && curl https://github.com/Artuto/secret-replacer/releases/latest/download/secret-replacer.jar -o secret-replacer.jar
 
 USER        container
 ENV         USER=container HOME=/home/container
@@ -22,5 +23,6 @@ ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
 COPY        ./../entrypoint.sh /entrypoint.sh
+COPY        ./../update-git.sh /update-git.sh
 
 CMD         ["/bin/bash", "/entrypoint.sh"]
