@@ -15,7 +15,7 @@ RUN         apt update -y \
             && apt update -y \
             && apt install -y msopenjdk-17 \
             && useradd -d /home/container -m container \
-            && curl https://github.com/Artuto/secret-replacer/releases/latest/download/secret-replacer.jar -o secret-replacer.jar
+            && curl -L https://github.com/Artuto/secret-replacer/releases/latest/download/secret-replacer.jar -o secret-replacer.jar
 
 USER        container
 ENV         USER=container HOME=/home/container
