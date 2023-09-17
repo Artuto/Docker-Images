@@ -15,7 +15,7 @@ chmod +x bedrock_server
 echo "Starting Minecraft Bedrock Dedicated Server..."
 
 if [ -f /usr/local/bin/box64 ] ; then
-    exec box64 `eval ${MODIFIED_STARTUP}`
+    exec box64 ${MODIFIED_STARTUP}
 else
     exec `eval ${MODIFIED_STARTUP}`
 fi
