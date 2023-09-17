@@ -4,7 +4,6 @@ cd /home/container
 # Clone or update the repository
 if [ ! -d ".git/" ]; then
     git clone --depth=1 --quiet ${CONFIG_GIT_REPO_URL} gittemp
-    git remote set-url --push origin no_push
     mv gittemp/.git/ .
     rm -rf gittemp
     git reset --hard
