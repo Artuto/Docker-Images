@@ -38,4 +38,4 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/artuto/egg:games/${{ matrix.game.tag }}
+            ghcr.io/artuto/egg:games_${{ matrix.game.tag }}
