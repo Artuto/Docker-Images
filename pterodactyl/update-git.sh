@@ -9,7 +9,7 @@ if [ ! -d ".git/" ]; then
     git reset --hard
 else
     git reset --hard
-    git pull --depth=1 --ff-only --quiet
+    git pull --depth=1 --ff-only --quiet --allow-unrelated-histories
 fi
 
 if [ ! -n ${REPLACER_OPTIONS_FILE} ]; then
