@@ -4,10 +4,10 @@ cd /home/container
 # Clone or update the repository
 if [ ! -d ".git/" ]; then
     git clone --depth=1 --quiet ${CONFIG_GIT_REPO_URL} gittemp
-    git config user.name "Automated"
-    git config user.email auto@mated.null
     mv gittemp/.git/ .
     rm -rf gittemp
+    git config user.name "Automated"
+    git config user.email auto@mated.null
     git reset --hard
 else
     git reset --hard
