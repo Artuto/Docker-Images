@@ -7,6 +7,8 @@ LABEL       author="Artuto" maintainer="artuto@artuto.xyz"
 LABEL       org.opencontainers.image.source="https://github.com/Artuto/Docker-Images"
 LABEL       org.opencontainers.image.licenses=MIT
 
+ARG         TARGETARCH
+
 RUN         apt update -y \
             && apt install -y curl ca-certificates openssl git tar sqlite3 fontconfig tzdata iproute2 zip unzip \
             && useradd -d /home/container -m container
