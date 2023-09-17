@@ -31,8 +31,8 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - uses: docker/build-push-action@v2
         with:
-          context: ./pterodactyl
-          file: ./pterodactyl/${{ matrix.tag }}/Dockerfile
+          context: ./pterodactyl/java
+          file: ./pterodactyl/java/${{ matrix.tag }}/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
