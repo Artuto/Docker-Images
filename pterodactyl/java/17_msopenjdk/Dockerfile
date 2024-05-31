@@ -1,4 +1,4 @@
-FROM         --platform=$TARGETOS/$TARGETARCH debian:buster-slim
+FROM         --platform=$TARGETOS/$TARGETARCH debian:bookworm-slim
 
 ENV         LANG=C.UTF-8
 
@@ -8,8 +8,8 @@ LABEL       org.opencontainers.image.source="https://github.com/Artuto/Docker-Im
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apt update -y \
-            && apt install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 \
-            && curl https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -o packages-microsoft-prod.deb \
+            && apt install -y curl ca-certificates openssl git tar sqlite fontconfig tzdata iproute2 lsb-release \
+            && curl https://packages.microsoft.com/config/debian/$(lsb_release -rs)/packages-microsoft-prod.deb -o packages-microsoft-prod.deb \
             && dpkg -i packages-microsoft-prod.deb \
             && rm packages-microsoft-prod.deb \
             && apt update -y \
