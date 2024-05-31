@@ -17,6 +17,7 @@ jobs:
       matrix:
         tag:
           - 17_msopenjdk
+          - 21_msopenjdk
     steps:
       - uses: actions/checkout@v2
       - uses: docker/setup-qemu-action@v1
